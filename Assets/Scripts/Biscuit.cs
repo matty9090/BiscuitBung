@@ -5,8 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Biscuit : MonoBehaviour
 {
-    [SerializeField] private float DragScale = 0.01f;
-    [SerializeField] private float ThrowScale = 4.0f;
+    [SerializeField] private BiscuitData Scales;
 
     private Vector3 mDelta;
     private Vector3 mLastMousePos;
@@ -28,7 +27,7 @@ public class Biscuit : MonoBehaviour
 
     public void OnMouseDrag()
     {
-        mLastVel = DragScale * (transform.forward * mDelta.y + transform.right * mDelta.x);
+        mLastVel = Scales.DragScale * (transform.forward * mDelta.y + transform.right * mDelta.x);
         transform.position += mLastVel;
     }
 
@@ -36,6 +35,6 @@ public class Biscuit : MonoBehaviour
     {
         Thrown = true;
         GetComponent<Rigidbody>().isKinematic = false;
-        GetComponent<Rigidbody>().velocity = mLastVel * ThrowScale;
+        GetComponent<Rigidbody>().velocity = mLastVel * Scales.LaunchScale;
     }
 }
