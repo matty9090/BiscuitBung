@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class SuccessTrigger : MonoBehaviour
 {
-    [SerializeField] private Game Game = null;
     [SerializeField] private ParticleSystem Particles = null;
 
-    void OnTriggerEnter()
+    private void OnTriggerEnter(Collider other)
     {
-        Game.SuccessEvent.Invoke();
-        Particles.Play();
+        if (other.GetComponent<Biscuit>() != null)
+            Particles.Play();
     }
 }

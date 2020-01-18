@@ -10,6 +10,7 @@ public class BiscuitData : ScriptableObject
     [SerializeField] private bool UseDesktop = true;
 
     public float MaxLaunchDist = 3.0f;
+    public float Timeout = 6.0f;
 
     public float LaunchScale {
         get {

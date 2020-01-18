@@ -5,20 +5,33 @@ using UnityEngine.EventSystems;
 
 public class Biscuit : MonoBehaviour
 {
-    [SerializeField] private BiscuitData LaunchData;
+    [SerializeField] private BiscuitData LaunchData = null;
 
     private Plane mLaunchPlane;
     private Vector3 mLastVel;
     private Vector3 mInitialPosition;
 
     public bool Thrown { get; private set; }
+    private Game mGame;
 
     void Start()
     {
         Thrown = false;
         mInitialPosition = transform.position;
+        mGame = GameObject.Find("Game").GetComponent<Game>();
         mLaunchPlane = new Plane(transform.up, transform.position);
         GetComponent<Rigidbody>().isKinematic = true;
+
+        Destroy(gameObject, LaunchData.Timeout);
+    }
+
+    private void Update()
+    {
+        if (Thrown && GetComponent<Rigidbody>().velocity.magnitude < 0.02f)
+        {
+            mGame.FailedEvent.Invoke();
+            Destroy(gameObject);
+        }
     }
 
     public void OnMouseDrag()
@@ -47,5 +60,11 @@ public class Biscuit : MonoBehaviour
         Thrown = true;
         GetComponent<Rigidbody>().isKinematic = false;
         GetComponent<Rigidbody>().velocity = mLastVel * LaunchData.LaunchScale;
+    }
+
+    private void OnTriggerEnter()
+    {
+        mGame.SuccessEvent.Invoke();
+        Destroy(gameObject);
     }
 }
