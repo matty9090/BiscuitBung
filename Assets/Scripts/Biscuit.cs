@@ -29,7 +29,6 @@ public class Biscuit : MonoBehaviour
     {
         if (Thrown && GetComponent<Rigidbody>().velocity.magnitude < 0.02f)
         {
-            mGame.FailedEvent.Invoke();
             Destroy(gameObject);
         }
     }
@@ -70,5 +69,10 @@ public class Biscuit : MonoBehaviour
     {
         mGame.SuccessEvent.Invoke();
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        mGame.FailedEvent.Invoke();
     }
 }
