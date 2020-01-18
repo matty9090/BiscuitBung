@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c88a478b9229a343988c09b8201f907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scales: {fileID: 11400000, guid: 68a62383291369d4cbc0bc3d44bc0db1, type: 2}
+  LaunchData: {fileID: 11400000, guid: 68a62383291369d4cbc0bc3d44bc0db1, type: 2}
 --- !u!64 &6882507128163862594
 MeshCollider:
   m_ObjectHideFlags: 0
