@@ -9,12 +9,14 @@ public class Biscuit : MonoBehaviour
 
     private Plane mLaunchPlane;
     private Vector3 mLastVel;
+    private Vector3 mInitialPosition;
 
     public bool Thrown { get; private set; }
 
     void Start()
     {
         Thrown = false;
+        mInitialPosition = transform.position;
         mLaunchPlane = new Plane(transform.up, transform.position);
         GetComponent<Rigidbody>().isKinematic = true;
     }
@@ -26,7 +28,17 @@ public class Biscuit : MonoBehaviour
         float distToPlane;
 
         mLaunchPlane.Raycast(ray, out distToPlane);
-        transform.position = ray.GetPoint(distToPlane);
+        var planePoint = ray.GetPoint(distToPlane);
+
+        if (Vector3.Distance(planePoint, mInitialPosition) < LaunchData.MaxLaunchDist)
+        {
+            transform.position = planePoint;
+        }
+        else
+        {
+            transform.position = (planePoint - mInitialPosition).normalized * LaunchData.MaxLaunchDist + mInitialPosition;
+        }
+
         mLastVel = transform.position - lastPos;
     }
 
