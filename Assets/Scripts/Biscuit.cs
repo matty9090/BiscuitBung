@@ -36,6 +36,9 @@ public class Biscuit : MonoBehaviour
 
     public void OnMouseDrag()
     {
+        if (Thrown)
+            return;
+
         var lastPos = transform.position;
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         float distToPlane;
@@ -60,6 +63,7 @@ public class Biscuit : MonoBehaviour
         Thrown = true;
         GetComponent<Rigidbody>().isKinematic = false;
         GetComponent<Rigidbody>().velocity = mLastVel * LaunchData.LaunchScale;
+        GetComponent<Rigidbody>().angularVelocity = Random.rotation.eulerAngles * Random.Range(0.0f, 0.02f);
     }
 
     private void OnTriggerEnter()

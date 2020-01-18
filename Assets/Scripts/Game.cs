@@ -7,7 +7,6 @@ public class Game : MonoBehaviour
 {
     [SerializeField] private GameObject BiscuitType = null;
     [SerializeField] private Transform LaunchPosition = null;
-    private GameObject Biscuit = null;
 
     public UnityEvent SuccessEvent;
     public UnityEvent FailedEvent;
@@ -17,7 +16,6 @@ public class Game : MonoBehaviour
     public int Score { get; private set; }
     public int Best { get; private set; }
 
-    // Start is called before the first frame update
     void Start()
     {
         Score = 0;
@@ -48,6 +46,6 @@ public class Game : MonoBehaviour
 
     void PrepareLaunch()
     {
-        Biscuit = Instantiate(BiscuitType, LaunchPosition.position, LaunchPosition.rotation);
+         Instantiate(BiscuitType, LaunchPosition.position, LaunchPosition.rotation);
     }
 }
