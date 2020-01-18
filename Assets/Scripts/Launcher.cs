@@ -17,7 +17,6 @@ public class Launcher : MonoBehaviour
         if (Biscuit.GetComponent<Biscuit>().Thrown &&
             Biscuit.GetComponent<Rigidbody>().velocity.magnitude <= 0.001f)
         {
-            Debug.Log("Spawning");
             Destroy(Biscuit);
             Biscuit = Instantiate(BiscuitType, transform.position, transform.rotation);
         }
