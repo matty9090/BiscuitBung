@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -56,5 +55,10 @@ public class Game : MonoBehaviour
     void PrepareLaunch()
     {
          Instantiate(BiscuitType, LaunchPosition.position, LaunchPosition.rotation);
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
