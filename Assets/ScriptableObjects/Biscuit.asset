@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Biscuit
   m_EditorClassIdentifier: 
   LaunchScaleDesktop: 22
-  LaunchScaleApp: 42
-  UseDesktop: 0
-  MaxLaunchDist: 3.2
+  LaunchScaleApp: 60
+  MaxLaunchDist: 2
   Timeout: 6
   NumFramesAvg: 6
