@@ -17,6 +17,7 @@ public class Game : MonoBehaviour
     [SerializeField] private GameObject BiscuitType = null;
     [SerializeField] private Transform LaunchPosition = null;
     [SerializeField] private List<Level> Levels = null;
+    [SerializeField] private AudioSource AchievementSound = null;
 
     public UnityEvent SuccessEvent;
     public UnityEvent FailedEvent;
@@ -54,6 +55,7 @@ public class Game : MonoBehaviour
     {
         ++Score;
         ScoreChangedEvent.Invoke();
+        AchievementSound.Play();
 
         if (Score > Best)
         {

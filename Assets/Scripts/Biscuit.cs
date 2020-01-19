@@ -29,7 +29,7 @@ public class Biscuit : MonoBehaviour
 
     private void Update()
     {
-        if (Thrown && GetComponent<Rigidbody>().velocity.magnitude < 0.02f)
+        if (Thrown && GetComponent<Rigidbody>().velocity.magnitude < 0.002f)
         {
             Destroy(gameObject);
         }
@@ -75,6 +75,7 @@ public class Biscuit : MonoBehaviour
         GetComponent<Rigidbody>().isKinematic = false;
         GetComponent<Rigidbody>().velocity = avgVel * LaunchData.LaunchScale;
         GetComponent<Rigidbody>().angularVelocity = Random.rotation.eulerAngles * Random.Range(0.0f, 0.02f);
+        GetComponent<AudioSource>().Play();
     }
 
     private void OnTriggerEnter()
