@@ -18,6 +18,12 @@ public class Game : MonoBehaviour
 
     void Start()
     {
+        if (PlayerPrefs.HasKey("Best"))
+        {
+            Best = PlayerPrefs.GetInt("Best");
+            BestChangedEvent.Invoke();
+        }
+
         Score = 0;
         PrepareLaunch();
     }
@@ -31,6 +37,9 @@ public class Game : MonoBehaviour
         {
             Best = Score;
             BestChangedEvent.Invoke();
+
+            PlayerPrefs.SetInt("Best", Best);
+            PlayerPrefs.Save();
         }
 
         PrepareLaunch();
