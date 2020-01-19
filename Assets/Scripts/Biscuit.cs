@@ -12,7 +12,8 @@ public class Biscuit : MonoBehaviour
     private Vector3 mInitialPosition;
 
     public bool Thrown { get; private set; }
-    private Game mGame;
+    public bool Success = false;
+    private Game mGame = null;
 
     void Start()
     {
@@ -67,12 +68,14 @@ public class Biscuit : MonoBehaviour
 
     private void OnTriggerEnter()
     {
+        Success = true;
         mGame.SuccessEvent.Invoke();
         Destroy(gameObject);
     }
 
     private void OnDestroy()
     {
-        mGame.FailedEvent.Invoke();
+        if (mGame != null && !Success)
+            mGame.FailedEvent.Invoke();
     }
 }

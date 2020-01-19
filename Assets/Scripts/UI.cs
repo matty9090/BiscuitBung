@@ -11,11 +11,11 @@ public class UI : MonoBehaviour
 
     public void OnScoreChanged()
     {
-        Score.text = "Score: " + Game.Score;
+        Score.text = "" + Game.Score;
     }
 
     public void OnBestChanged()
     {
-        Best.text = "Best: " + Game.Best;
+        Best.text = "" + Game.Best;
     }
 }
