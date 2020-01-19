@@ -8,8 +8,8 @@ public class Biscuit : MonoBehaviour
     [SerializeField] private BiscuitData LaunchData = null;
 
     private Plane mLaunchPlane;
-    private Vector3 mLastVel;
     private Vector3 mInitialPosition;
+    private List<Vector3> mVels;
 
     public bool Thrown { get; private set; }
     public bool Success = false;
@@ -19,6 +19,7 @@ public class Biscuit : MonoBehaviour
     {
         Thrown = false;
         mInitialPosition = transform.position;
+        mVels = new List<Vector3>();
         mGame = GameObject.Find("Game").GetComponent<Game>();
         mLaunchPlane = new Plane(transform.up, transform.position);
         GetComponent<Rigidbody>().isKinematic = true;
@@ -55,14 +56,24 @@ public class Biscuit : MonoBehaviour
             transform.position = (planePoint - mInitialPosition).normalized * LaunchData.MaxLaunchDist + mInitialPosition;
         }
 
-        mLastVel = transform.position - lastPos;
+        mVels.Add(transform.position - lastPos);
+
+        if (mVels.Count > LaunchData.NumFramesAvg)
+            mVels.RemoveAt(0);
     }
 
     private void OnMouseUp()
     {
+        Vector3 avgVel = Vector3.zero;
+
+        foreach (var vel in mVels)
+            avgVel += vel;
+
+        avgVel /= mVels.Count;
+
         Thrown = true;
         GetComponent<Rigidbody>().isKinematic = false;
-        GetComponent<Rigidbody>().velocity = mLastVel * LaunchData.LaunchScale;
+        GetComponent<Rigidbody>().velocity = avgVel * LaunchData.LaunchScale;
         GetComponent<Rigidbody>().angularVelocity = Random.rotation.eulerAngles * Random.Range(0.0f, 0.02f);
     }
 
