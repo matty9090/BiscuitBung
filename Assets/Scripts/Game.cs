@@ -1,11 +1,22 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+
+[System.Serializable]
+public struct Level
+{
+    public Camera Camera;
+    public Animator Cutscene;
+    public float CutsceneLength;
+}
 
 public class Game : MonoBehaviour
 {
     [SerializeField] private GameObject BiscuitType = null;
     [SerializeField] private Transform LaunchPosition = null;
+    [SerializeField] private List<Level> Levels = null;
 
     public UnityEvent SuccessEvent;
     public UnityEvent FailedEvent;
@@ -24,6 +35,18 @@ public class Game : MonoBehaviour
         }
 
         Score = 0;
+
+        StartCoroutine(PlayCutscene(Levels[0]));
+    }
+
+    private IEnumerator PlayCutscene(Level level)
+    {
+        level.Camera.enabled = false;
+        level.Cutscene.Play("Cutscene");
+        yield return new WaitForSeconds(level.CutsceneLength);
+        level.Cutscene.StopPlayback();
+        level.Camera.enabled = true;
+
         PrepareLaunch();
     }
 
